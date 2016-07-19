@@ -1,8 +1,9 @@
-
+require_relative "Piece"
+require_relative "NullPiece"
 class Board
       attr_reader :grid
       def initialize
-          @grid = Array.new(8){Array.new(8){nil}}
+          @grid = Array.new(8){Array.new(8){NullPiece.new}}
       end
 
       def [](pos)
@@ -15,7 +16,24 @@ class Board
         @grid[x][y] = value
       end
 
+      def full?
+        @grid.all? do |row|
+          row.all? { |piece| piece.present? }
+        end
+      end
 
+      def mark(pos)
+        x, y = pos
+        @grid[x][y] = Piece.new
+      end
+
+      def in_bounds?(pos)
+        pos.all? { |x| x.between?(0, 7) }
+      end
+
+      def rows
+        @grid
+      end
       # def move start end_pos
       #   #This should update the 2D grid and also the moved piece's position.
       #   #You'll want to raise an exception if:

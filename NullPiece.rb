@@ -1,4 +1,15 @@
 class NullPiece
+  # include Singleton
 
+  def initialize
+  end
 
-end 
+def present?
+    false
+end
+
+def to_s
+  "   "
+end
+
+end

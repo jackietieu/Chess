@@ -1,18 +1,19 @@
 require_relative "Display"
 
 class Player
-  def initialize(color, display)#color)
-    @color = color
-    @display = display
+  def initialize(board)#color)
+    @board = Display.new(board)
+    # @color = color
+    # @display = display
     #@color = color
   end
 
-  def select_pos
+  def move
     result = nil
 
-    until result
-      result = @display.get_input
-      @display.render
+     until result != nil
+      result = @board.get_input
+      @board.render
     end
 
     result
