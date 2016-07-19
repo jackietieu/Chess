@@ -1,10 +1,21 @@
-require_relative "Piece"
+require_relative 'pieces/Bishop'
+require_relative 'pieces/King'
+require_relative 'pieces/Knight'
+require_relative 'pieces/Pawn'
+require_relative 'pieces/Queen'
+require_relative 'pieces/Rook'
+require_relative 'pieces/modules/Stepable'
+require_relative 'pieces/modules/Slideable'
+
+require_relative "pieces/Piece"
 require_relative "NullPiece"
+
 class Board
   attr_reader :grid
 
   def initialize
     @grid = Array.new(8){Array.new(8, NullPiece.instance)}
+    self.fill_pieces
   end
 
   def [](pos)
@@ -36,7 +47,23 @@ class Board
     pos.all? { |x| x.between?(0, 7) }
   end
 
-  #[Rook, Knight, Bishop, Queen, King, ]
+  BACK_ROW = [[Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook], Array.new(8) {Pawn}]
+
+  def fill_pieces
+    require 'byebug'
+    0.upto(1).each do |i|
+
+      BACK_ROW[i].each_with_index do |piece, j|
+        debugger if BACK_ROW[i][j].nil?
+        @grid[i][j] = BACK_ROW[i][j].new(:black, [i, j])
+      end
+
+      BACK_ROW[i].each_with_index do |piece, j|
+        @grid[7 - i][j] = BACK_ROW[i][j].new(:white, [7 - i, j])
+      end
+    end
+          #debugger
+  end
 
   def rows
     @grid
