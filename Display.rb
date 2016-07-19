@@ -32,25 +32,37 @@ class Display
      @board.rows.map.with_index do |row, i|
        build_row(row, i)
      end
+  end
+
+ def build_row(row, i)
+   row.map.with_index do |piece, j|
+     player_color = piece.color
+     color_options = colors_for(i, j, player_color)
+     piece.to_s.colorize(color_options)
+   end
+ end
+
+ def colors_for(i, j, player_color)
+   if [i, j] == @cursor_pos
+     bg = :light_red
+   elsif (i + j).odd?
+     bg = :light_blue
+   else
+     bg = :blue
    end
 
-   def build_row(row, i)
-     row.map.with_index do |piece, j|
-       color_options = colors_for(i, j)
-       piece.to_s.colorize(color_options)
-     end
-   end
+   color = :white
 
-   def colors_for(i, j)
-     if [i, j] == @cursor_pos
-       bg = :light_red
-     elsif (i + j).odd?
-       bg = :black
-     else
-       bg = :white
-     end
-     { background: bg, color: :white }
-   end
+  if player_color == :white || player_color == :black
+     if player_color == :white
+       color = :white
+     elsif player_color == :black
+       color = :black
+    end
+  end
+
+   { background: bg, color: color }
+ end
 end
 
 chess = Board.new

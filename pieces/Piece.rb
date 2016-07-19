@@ -1,4 +1,5 @@
 class Piece
+  attr_reader :color 
   def initialize(color, pos)
     @color, @pos = color, pos
   end
