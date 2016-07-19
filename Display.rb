@@ -8,8 +8,9 @@ class Display
   def initialize(board)
     @board = board
     @cursor_pos = [0, 0]
+    @select = false
   end
-  #
+
   # def render
   #     @board.grid.each.with_index do |row,i|
   #       row.each_with_index do |piece.to_s.colorize, j|
@@ -51,6 +52,7 @@ class Display
      { background: bg, color: :white }
    end
 end
+
 chess = Board.new
 displayed = Display.new(chess)
 displayed.render

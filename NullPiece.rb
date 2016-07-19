@@ -1,8 +1,11 @@
-class NullPiece
-  # include Singleton
+require 'singleton'
 
-  def initialize
-  end
+class NullPiece
+  include Singleton
+
+def initialize
+  
+end
 
 def present?
     false
