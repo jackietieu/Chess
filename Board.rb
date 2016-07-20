@@ -4,8 +4,8 @@ require_relative 'pieces/Knight'
 require_relative 'pieces/Pawn'
 require_relative 'pieces/Queen'
 require_relative 'pieces/Rook'
-require_relative 'pieces/modules/Stepable'
-require_relative 'pieces/modules/Slideable'
+require_relative 'pieces/Stepable'
+require_relative 'pieces/Slideable'
 
 require_relative "pieces/Piece"
 require_relative "NullPiece"
@@ -54,15 +54,14 @@ class Board
     0.upto(1).each do |i|
 
       BACK_ROW[i].each_with_index do |piece, j|
-        debugger if BACK_ROW[i][j].nil?
-        @grid[i][j] = BACK_ROW[i][j].new(:black, [i, j])
+        #debugger
+        @grid[i][j] = BACK_ROW[i][j].new(self, :black, [i, j])
       end
 
       BACK_ROW[i].each_with_index do |piece, j|
-        @grid[7 - i][j] = BACK_ROW[i][j].new(:white, [7 - i, j])
+        @grid[7 - i][j] = BACK_ROW[i][j].new(self, :white, [7 - i, j])
       end
     end
-          #debugger
   end
 
   def rows

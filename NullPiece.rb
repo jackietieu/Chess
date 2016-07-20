@@ -5,7 +5,7 @@ class NullPiece
   attr_reader :color
 
 def initialize
-  @color = :white
+  @color = :red
 end
 
 def present?

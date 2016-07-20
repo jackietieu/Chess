@@ -36,13 +36,14 @@ class Display
 
  def build_row(row, i)
    row.map.with_index do |piece, j|
-     player_color = piece.color
-     color_options = colors_for(i, j, player_color)
+    #  require 'byebug'; debugger if piece == Array
+     piece_color = piece.color
+     color_options = colors_for(i, j, piece_color)
      piece.to_s.colorize(color_options)
    end
  end
 
- def colors_for(i, j, player_color)
+ def colors_for(i, j, piece_color)
    if [i, j] == @cursor_pos
      bg = :light_red
    elsif (i + j).odd?
@@ -53,10 +54,10 @@ class Display
 
    color = :white
 
-  if player_color == :white || player_color == :black
-     if player_color == :white
+  if piece_color == :white || piece_color == :black
+     if piece_color == :white
        color = :white
-     elsif player_color == :black
+     elsif piece_color == :black
        color = :black
     end
   end
